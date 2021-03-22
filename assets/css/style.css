@@ -1,0 +1,18 @@
+header {
+  display: block;
+  color: white;
+  background-color: rgb(128, 128, 128);
+  text-align: center;
+  padding: 5px;
+}
+
+.search-city {
+  display: block;
+  margin: 0;
+  padding: 10px;
+}
+
+.weather-info {
+  display: block;
+  text-align: center;
+}
