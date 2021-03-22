@@ -1,7 +1,8 @@
 const searchBtn = document.getElementById("search-button");
 const weatherContainerEl = document.getElementById("weather-container");
 // Step 1: Get current weather API for any city
-function getApi(city) {
+function getApi() {
+  let city = document.getElementById("city-name").value;
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
   let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
   fetch(requestUrl)
@@ -21,8 +22,10 @@ function getApi(city) {
 function displayWeather(weatherInfo) {
   console.log(weatherInfo.name);
   let cityName = weatherInfo.name;
-  weatherContainerEl.innerHTML = `
+  let cityInfo = document.createElement("div");
+  cityInfo.innerHTML = `
   <h1>${cityName}</h1>`;
+  weatherContainerEl.append(cityInfo);
 }
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
