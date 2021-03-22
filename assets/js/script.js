@@ -1,17 +1,29 @@
 const searchBtn = document.getElementById("search-button");
-// Step 1: Get current weather API
+const weatherContainerEl = document.getElementById("weather-container");
+// Step 1: Get current weather API for any city
 function getApi(city) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
-  let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
   fetch(requestUrl)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
+      displayWeather(data);
       console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
-// Step 2: Diplay current weather on page
+
+// Step 2: Display data on page
+function displayWeather(weatherInfo) {
+  console.log(weatherInfo.name);
+  let cityName = weatherInfo.name;
+  weatherContainerEl.innerHTML = `
+  <h1>${cityName}</h1>`;
+}
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
