@@ -8,8 +8,8 @@ function getApi(city) {
     .then((res) => {
       return res.json();
     })
-    .then((data) => {
-      displayCurrentWeather(data);
+    .then((currentData) => {
+      displayCurrentWeather(currentData);
       console.log(data);
     })
     .catch((err) => {
@@ -17,7 +17,7 @@ function getApi(city) {
     });
 }
 
-// Step 2: Display data on page
+// Step 2: Display current weather info on page
 //need to display icon..
 function displayCurrentWeather(weatherInfo) {
   let cityName = weatherInfo.name;
@@ -34,29 +34,30 @@ function displayCurrentWeather(weatherInfo) {
       return;
     } else {
       cityNameEl.innerText = cityName;
-      currentDateEl.innerText = currentDate;
+      currentDateEl.innerText = `(${currentDate})`;
       iconEl.innerText = iconEl;
     }
   }
-  getApi2();
+  getApi2(cityName);
 }
 // Get next 5 day daily forecast API
-function getApi2() {
+function getApi2(cityName) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
-  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&units=imperial&cnt=5&appid=${apiKey}`;
+  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&cnt=5&appid=${apiKey}`;
   fetch(requestUrl)
     .then((res) => {
       return res.json();
     })
-    .then((data) => {
+    .then((futureData) => {
       //   displayFutureWeather(data);
-      console.log(data);
+      console.log(futureData);
     })
     .catch((err) => {
       console.log(err);
     });
 }
-
+// Display future weather conditions on page
+function displayFutureWeather() {}
 // working api: 'api.openweathermap.org/data/2.5/forecast?q=Atlanta&appid=0ae0fe7cc5a483cdff07255ca0a1a19f'
 
 // GIVEN a weather dashboard with form inputs
