@@ -38,10 +38,10 @@ function displayCurrentWeather(weatherInfo) {
       iconEl.innerText = iconEl;
     }
   }
-  getApi2(city);
+  getApi2();
 }
 // Get next 5 day daily forecast API
-function getApi2(city) {
+function getApi2() {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
   let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&units=imperial&cnt=5&appid=${apiKey}`;
   fetch(requestUrl)
