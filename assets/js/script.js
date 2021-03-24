@@ -28,7 +28,7 @@ function displayCurrentWeather(currentData) {
   let iconEl = document.getElementById("icon-rep");
   iconEl.setAttribute("src", iconUrl);
   let currentTemp = currentData.main["temp"];
-  console.log(currentTemp);
+  let currentTempEl = document.getElementById("current-temp");
   for (let i = 0; i < cityName.length; i++) {
     if (cityName === undefined) {
       return;
@@ -36,6 +36,7 @@ function displayCurrentWeather(currentData) {
       cityNameEl.innerText = cityName;
       currentDateEl.innerText = `(${currentDate})`;
       iconEl.innerText = iconEl;
+      currentTempEl.innerText = `Temperature: ${currentTemp}`;
     }
   }
   getApi2(cityName);
