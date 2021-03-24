@@ -163,7 +163,24 @@ function displayFutureWeather(futureData) {
     }
   }
 }
-// working api: 'api.openweathermap.org/data/2.5/forecast?q=Atlanta&appid=0ae0fe7cc5a483cdff07255ca0a1a19f'
+
+// Save items to local storage
+function saveLastCity(city) {
+  console.log(city);
+  localStorage.setItem("city", JSON.stringify(city));
+  getItemsFromStorage(city);
+}
+// function init() {
+// When the init function is executed, the code inside getItemsFromStorage function will also execute
+//   getItemsFromStorage();
+// }
+// init();
+function getItemsFromStorage(city) {
+  console.log(city);
+  let savedCity = JSON.parse(localStorage.getItem(city));
+  const list = document.getElementById("saved-city-1");
+  list.innerHTML += `<li>${savedCity}</li>`;
+}
 
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
@@ -176,7 +193,9 @@ function displayFutureWeather(futureData) {
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
-searchBtn.addEventListener("click", function () {
+searchBtn.addEventListener("click", function (event) {
+  event.preventDefault();
   let city = document.getElementById("city-name").value;
   getApi(city);
+  saveLastCity(city);
 });
