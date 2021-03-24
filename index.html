@@ -21,6 +21,7 @@
     <header>
       <h1>Weather Dashboard</h1>
     </header>
+    <!-- Current Weather Conditions -->
     <container class="container">
       <div class="row">
         <div class="col-md-3 ml-5 mr-0 search-city">
@@ -31,12 +32,12 @@
           </button>
         </div>
         <div class="col-md-7 mr-5 border weather-info">
-          <h2 id="searched-city"></h2>
-          <h2 id="current-date"></h2>
+          <h3 id="searched-city">City Name</h3>
+          <h3 id="current-date">Current Date</h3>
           <image id="icon-rep"></image>
           <p id="current-temp">Temperature:</p>
           <p id="current-humidity">Humidity:</p>
-          <p>Wind Speed:</p>
+          <p id="current-wind-speed">Wind Speed:</p>
           <p>UV Index:</p>
         </div>
       </div>
@@ -49,12 +50,49 @@
         <li class="list-group-item col-2">City name</li>
         <li class="list-group-item col-2">City name</li>
       </ul> -->
+    <!-- Future Weather Conditions -->
     <container>
       <div class="row">
         <div class="col-md-3 ml-5"></div>
         <div class="col-md-7 mr-5 border">
           <h4>5-Day Forecast:</h4>
-          <p>Date, Icon, Temp, Humidity</p>
+          <div class="row ml-1">
+            <!-- First Day -->
+            <div class="col-md-2 border">
+              <p id="future-date-1">Date:</p>
+              <image id="icon-rep-1">Icon:</image>
+              <p id="future-temp-1">Temperature:</p>
+              <p id="future-humidity-1">Humidity:</p>
+            </div>
+            <!-- Second Day -->
+            <div class="col-md-2 border">
+              <p id="future-date-2">Date:</p>
+              <image id="icon-rep-2">Icon:</image>
+              <p id="future-temp-2">Temperature:</p>
+              <p id="future-humidity-2">Humidity:</p>
+            </div>
+            <!-- Third Day -->
+            <div class="col-md-2 border">
+              <p id="future-date-3">Date:</p>
+              <image id="icon-rep-3">Icon:</image>
+              <p id="future-temp-3">Temperature:</p>
+              <p id="future-humidity-3">Humidity:</p>
+            </div>
+            <!-- Fourth Day -->
+            <div class="col-md-2 border">
+              <p id="future-date-4">Date:</p>
+              <image id="icon-rep-4">Icon:</image>
+              <p id="future-temp-4">Temperature:</p>
+              <p id="future-humidity-4">Humidity:</p>
+            </div>
+            <!-- Fifth Day -->
+            <div class="col-md-2 border">
+              <p id="future-date-5">Date:</p>
+              <image id="icon-rep-5">Icon:</image>
+              <p id="future-temp-5">Temperature:</p>
+              <p id="future-humidity-5">Humidity:</p>
+            </div>
+          </div>
         </div>
       </div>
     </container>
