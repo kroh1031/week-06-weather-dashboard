@@ -21,29 +21,43 @@
     <header>
       <h1>Weather Dashboard</h1>
     </header>
-    <div class="search-city">
-      <h4>Search for a City:</h4>
-      <input type="text" id="city-name" placeholder="Search.." />
-      <button id="search-button" type="button" class="btn btn-primary">
-        <i class="fas fa-search"></i>
-      </button>
-      <!-- <ul class="list-group">
+    <container class="container">
+      <div class="row">
+        <div class="col-md-3 ml-5 mr-0 search-city">
+          <h4>Search for a City:</h4>
+          <input type="text" id="city-name" placeholder="Search.." />
+          <button id="search-button" type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="col-md-7 mr-5 border weather-info">
+          <h2 id="searched-city"></h2>
+          <h2 id="current-date"></h2>
+          <image id="icon-rep"></image>
+          <p>Temperature:</p>
+          <p>Humidity:</p>
+          <p>Wind Speed:</p>
+          <p>UV Index:</p>
+        </div>
+      </div>
+    </container>
+
+    <!-- <ul class="list-group">
         <li class="list-group-item col-2">City name</li>
         <li class="list-group-item col-2">City name</li>
         <li class="list-group-item col-2">City name</li>
         <li class="list-group-item col-2">City name</li>
         <li class="list-group-item col-2">City name</li>
       </ul> -->
-      <container id="weather-container" class="weather-info">
-        <div>
-          Weather info goes here...
-          <h1 id="searched-city"></h1>
-          <h2 id="current-date"></h2>
-          <image id="icon-rep"></image>
+    <container>
+      <div class="row">
+        <div class="col-md-3 ml-5"></div>
+        <div class="col-md-7 mr-5 border">
+          <h4>5-Day Forecast:</h4>
+          <p>Date, Icon, Temp, Humidity</p>
         </div>
-      </container>
-    </div>
-
+      </div>
+    </container>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>

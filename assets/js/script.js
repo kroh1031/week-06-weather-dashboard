@@ -1,5 +1,5 @@
 const searchBtn = document.getElementById("search-button");
-const weatherContainerEl = document.getElementById("weather-container");
+// const weatherContainerEl = document.getElementById("weather-container");
 // Step 1: Get current weather API for any city
 function getApi(city) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
@@ -10,7 +10,6 @@ function getApi(city) {
     })
     .then((currentData) => {
       displayCurrentWeather(currentData);
-      console.log(data);
     })
     .catch((err) => {
       console.log(err);
@@ -18,17 +17,18 @@ function getApi(city) {
 }
 
 // Step 2: Display current weather info on page
-//need to display icon..
-function displayCurrentWeather(weatherInfo) {
-  let cityName = weatherInfo.name;
+//need to display temperature, humidity, wind speed, and UV index with color representaion..
+function displayCurrentWeather(currentData) {
+  let cityName = currentData.name;
   let cityNameEl = document.getElementById("searched-city");
-  let currentDate = new Date(weatherInfo.dt * 1000).toLocaleDateString();
+  let currentDate = new Date(currentData.dt * 1000).toLocaleDateString();
   let currentDateEl = document.getElementById("current-date");
-  let icon = weatherInfo.weather[0]["icon"];
+  let icon = currentData.weather[0]["icon"];
   let iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
   let iconEl = document.getElementById("icon-rep");
   iconEl.setAttribute("src", iconUrl);
-
+  let currentTemp = currentData.main["temp"];
+  console.log(currentTemp);
   for (let i = 0; i < cityName.length; i++) {
     if (cityName === undefined) {
       return;
@@ -43,21 +43,36 @@ function displayCurrentWeather(weatherInfo) {
 // Get next 5 day daily forecast API
 function getApi2(cityName) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
-  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&cnt=5&appid=${apiKey}`;
+  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=${apiKey}`;
   fetch(requestUrl)
     .then((res) => {
       return res.json();
     })
     .then((futureData) => {
-      //   displayFutureWeather(data);
-      console.log(futureData);
+      displayFutureWeather(futureData);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 // Display future weather conditions on page
-function displayFutureWeather() {}
+function displayFutureWeather(futureData) {
+  //   console.log(futureData);
+  let cityName = futureData.city["name"];
+  let futureDate = new Date(
+    futureData.list[0]["dt"] * 1000
+  ).toLocaleDateString();
+  let icon = futureData.weather[0]["icon"];
+  //   for (let i = 0; i < cityName.length; i++) {
+  //     if (cityName === undefined) {
+  //       return;
+  //     } else {
+  //       cityNameEl.innerText = cityName;
+  //       currentDateEl.innerText = `(${currentDate})`;
+  //       iconEl.innerText = iconEl;
+  //     }
+  //   }
+}
 // working api: 'api.openweathermap.org/data/2.5/forecast?q=Atlanta&appid=0ae0fe7cc5a483cdff07255ca0a1a19f'
 
 // GIVEN a weather dashboard with form inputs
