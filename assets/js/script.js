@@ -1,6 +1,6 @@
 const searchBtn = document.getElementById("search-button");
 
-// Step 1: Get current weather API
+// Get current weather API
 function getApi(city) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
   let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
@@ -9,15 +9,52 @@ function getApi(city) {
       return res.json();
     })
     .then((currentData) => {
+      console.log(currentData);
       displayCurrentWeather(currentData);
+      getUviApi(currentData.coord.lat, currentData.coord.lon);
     })
     .catch((err) => {
       console.log(err);
     });
 }
+//Get UV Index API
+function getUviApi(lat, lon) {
+  let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
+  let requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${apiKey}`;
+  fetch(requestUrl)
+    .then((res) => {
+      return res.json();
+    })
+    .then((currentData) => {
+      displayUvi(currentData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+// Display UV Index
+function displayUvi(currentData) {
+  let uvi = parseFloat(currentData.current["uvi"]);
+
+  let uvColorNumber;
+  let uviEl = document.getElementById("current-uvi");
+  if (uvi <= 2) {
+    uvColorNumber = "green";
+  } else if (uvi > 2 && uvi <= 5) {
+    uvColorNumber = "yellow";
+  } else if (uvi > 5 && uvi <= 7) {
+    //you had <=7 and the next if statement checked for a number >=8, where is 7-8?
+    uvColorNumber = "orange";
+  } else if (uvi > 7 && uvi <= 10) {
+    uvColorNumber = "red";
+  } else {
+    uvColorNumber = "violet";
+  }
+
+  uviEl.innerHTML = `UV Index: <button class="btn" style="background-color:${uvColorNumber}">${uvi}</button>`;
+}
 
 // Display current weather info on page
-//need to display UV index with color representaion..
 function displayCurrentWeather(currentData) {
   let cityName = currentData.name;
   let cityNameEl = document.getElementById("searched-city");
@@ -40,14 +77,14 @@ function displayCurrentWeather(currentData) {
       cityNameEl.innerText = cityName;
       currentDateEl.innerText = `(${currentDate})`;
       iconEl.innerText = iconEl;
-      currentTempEl.innerText = `Temperature: ${currentTemp}°`;
+      currentTempEl.innerText = `Temperature: ${currentTemp}°F`;
       currentHumidityEl.innerText = `Humidity: ${currentHumidity}%`;
       currentWindSpeedEl.innerText = `Wind Speed: ${currentWindSpeed} mph`;
     }
   }
   getApi2(cityName);
 }
-// function getUvIndexApi() {}
+
 // Get next 5 day daily forecast API
 function getApi2(cityName) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
@@ -138,27 +175,27 @@ function displayFutureWeather(futureData) {
       //appending first day info
       futureDateEl1.innerText = `(${futureDate1})`;
       iconEl1.innerText = iconEl1;
-      futureTempEl1.innerText = `Temperature: ${futureTemp1}°`;
+      futureTempEl1.innerText = `Temperature: ${futureTemp1}°F`;
       futureHumidityEl1.innerText = `Humidity: ${futureHumidity1}%`;
       //appending second day info
       futureDateEl2.innerText = `(${futureDate2})`;
       iconEl2.innerText = iconEl2;
-      futureTempEl2.innerText = `Temperature: ${futureTemp2}°`;
+      futureTempEl2.innerText = `Temperature: ${futureTemp2}°F`;
       futureHumidityEl2.innerText = `Humidity: ${futureHumidity2}%`;
       //appending third day info
       futureDateEl3.innerText = `(${futureDate3})`;
       iconEl3.innerText = iconEl3;
-      futureTempEl3.innerText = `Temperature: ${futureTemp3}°`;
+      futureTempEl3.innerText = `Temperature: ${futureTemp3}°F`;
       futureHumidityEl3.innerText = `Humidity: ${futureHumidity3}%`;
       //appending fourth day info
       futureDateEl4.innerText = `(${futureDate4})`;
       iconEl4.innerText = iconEl4;
-      futureTempEl4.innerText = `Temperature: ${futureTemp4}°`;
+      futureTempEl4.innerText = `Temperature: ${futureTemp4}°F`;
       futureHumidityEl4.innerText = `Humidity: ${futureHumidity4}%`;
       //appending fifth day info
       futureDateEl5.innerText = `(${futureDate5})`;
       iconEl5.innerText = iconEl5;
-      futureTempEl5.innerText = `Temperature: ${futureTemp5}°`;
+      futureTempEl5.innerText = `Temperature: ${futureTemp5}°F`;
       futureHumidityEl5.innerText = `Humidity: ${futureHumidity5}%`;
     }
   }
@@ -167,35 +204,52 @@ function displayFutureWeather(futureData) {
 // Save items to local storage
 function saveLastCity(city) {
   console.log(city);
-  localStorage.setItem("city", JSON.stringify(city));
-  getItemsFromStorage(city);
+
+  //cities = ["Atlanta", "Phoenix", "Chicago"]
+  //get("cities")
+  //city = {"city", Atlanta}
+  // atlanta = {"atlanta", atlanta}
+  //getItem("atlanta")?
+  var cities = JSON.parse(localStorage.getItem("cities"));
+
+  if (cities == null) {
+    cities = [];
+  }
+  cities.push(city);
+  console.log(city[0].toUpperCase());
+  localStorage.setItem("cities", JSON.stringify(cities));
+
+  let list = document.getElementById("saved-city-1");
+  var listItem = document.createElement(`button`);
+  listItem.textContent = city;
+  list.append(listItem);
 }
-// function init() {
-// When the init function is executed, the code inside getItemsFromStorage function will also execute
-//   getItemsFromStorage();
-// }
-// init();
-function getItemsFromStorage(city) {
-  console.log(city);
-  let savedCity = JSON.parse(localStorage.getItem(city));
-  const list = document.getElementById("saved-city-1");
-  list.innerHTML += `<li>${savedCity}</li>`;
+function init() {
+  // When the init function is executed, the code inside getItemsFromStorage function will also execute
+  getItemsFromStorage();
+}
+init();
+function getItemsFromStorage() {
+  let savedCity = JSON.parse(localStorage.getItem("cities"));
+  let list = document.getElementById("saved-city-1");
+
+  savedCity.forEach((city) => {
+    var listItem = document.createElement(`button`);
+    listItem.textContent = city;
+    list.append(listItem);
+  });
 }
 
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   let city = document.getElementById("city-name").value;
   getApi(city);
   saveLastCity(city);
+});
+
+const savedCityEl = document.getElementById("saved-city-1");
+savedCityEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  var city = event.target.textContent;
+  getApi(city);
 });
