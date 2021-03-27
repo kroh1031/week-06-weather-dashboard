@@ -1,5 +1,7 @@
+// DOM Elements
 const searchBtn = document.getElementById("search-button");
-
+const clearBtn = document.getElementById("clear-button");
+const savedCityEl = document.getElementById("saved-city");
 // Get current weather API
 function getApi(city) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
@@ -9,7 +11,6 @@ function getApi(city) {
       return res.json();
     })
     .then((currentData) => {
-      console.log(currentData);
       displayCurrentWeather(currentData);
       getUviApi(currentData.coord.lat, currentData.coord.lon);
     })
@@ -34,6 +35,7 @@ function getUviApi(lat, lon) {
 }
 // Display UV Index
 function displayUvi(currentData) {
+  //parseFloat converts uvi that's a string into a number(including decimals)
   let uvi = parseFloat(currentData.current["uvi"]);
 
   let uvColorNumber;
@@ -220,7 +222,8 @@ function saveLastCity(city) {
   localStorage.setItem("cities", JSON.stringify(cities));
 
   let list = document.getElementById("saved-city");
-  let listItem = document.createElement(`button`);
+  let listItem = document.createElement(`li`);
+  listItem.setAttribute("class", "btn list-group-item");
   listItem.textContent = city;
   list.append(listItem);
 }
@@ -233,9 +236,12 @@ init();
 function getItemsFromStorage() {
   let savedCity = JSON.parse(localStorage.getItem("cities"));
   let list = document.getElementById("saved-city");
-
+  if (savedCity == undefined) {
+    return;
+  }
   savedCity.forEach((city) => {
-    var listItem = document.createElement(`button`);
+    let listItem = document.createElement(`li`);
+    listItem.setAttribute("class", "btn list-group-item");
     listItem.textContent = city;
     list.append(listItem);
   });
@@ -248,15 +254,15 @@ searchBtn.addEventListener("click", function (event) {
   saveLastCity(city);
 });
 
-// const clearBtn = document.getElementById("clear-button");
-// clearBtn.addEventListener("click", function (event) {
-//   event.preventDefault();
-//   removeAll();
-// });
-// function removeAll() {
-//   document.getElementById("saved-city").remove();
-// }
-const savedCityEl = document.getElementById("saved-city");
+clearBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  removeAll();
+});
+function removeAll() {
+  document.getElementById("saved-city").remove();
+  localStorage.clear();
+}
+
 savedCityEl.addEventListener("click", function (event) {
   event.preventDefault();
   var city = event.target.textContent;
