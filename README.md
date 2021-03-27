@@ -29,7 +29,8 @@ Screenshot of Weather Dashboard:
 ## Credits
 
 Credits to Kat Poulos and Jude Clark for helping me out with solving out the code and making it more efficient.  
-YouTube tutorial I've watched to gain a better understanding of the assignment: [https://www.youtube.com/watch?v=WZNG8UomjSI](https://www.youtube.com/watch?v=WZNG8UomjSI)
+YouTube tutorial I've watched to gain a better understanding of the assignment:  
+[https://www.youtube.com/watch?v=WZNG8UomjSI](https://www.youtube.com/watch?v=WZNG8UomjSI)
 
 ## License
 
