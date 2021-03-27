@@ -1,7 +1,7 @@
 // DOM Elements
 const searchBtn = document.getElementById("search-button");
 const clearBtn = document.getElementById("clear-button");
-const savedCityEl = document.getElementById("saved-city");
+const list = document.getElementById("saved-cities");
 // Get current weather API
 function getApi(city) {
   let apiKey = "0ae0fe7cc5a483cdff07255ca0a1a19f";
@@ -37,7 +37,7 @@ function getUviApi(lat, lon) {
 function displayUvi(currentData) {
   //parseFloat converts uvi that's a string into a number(including decimals)
   let uvi = parseFloat(currentData.current["uvi"]);
-
+  //color representation of uvi
   let uvColorNumber;
   let uviEl = document.getElementById("current-uvi");
   if (uvi <= 2) {
@@ -45,7 +45,6 @@ function displayUvi(currentData) {
   } else if (uvi > 2 && uvi <= 5) {
     uvColorNumber = "yellow";
   } else if (uvi > 5 && uvi <= 7) {
-    //you had <=7 and the next if statement checked for a number >=8, where is 7-8?
     uvColorNumber = "orange";
   } else if (uvi > 7 && uvi <= 10) {
     uvColorNumber = "red";
@@ -221,9 +220,12 @@ function saveLastCity(city) {
 
   localStorage.setItem("cities", JSON.stringify(cities));
 
-  let list = document.getElementById("saved-city");
   let listItem = document.createElement(`li`);
   listItem.setAttribute("class", "btn list-group-item");
+  listItem.addEventListener("click", function (event) {
+    let city = event.target.textContent;
+    getApi(city);
+  });
   listItem.textContent = city;
   list.append(listItem);
 }
@@ -235,7 +237,6 @@ init();
 
 function getItemsFromStorage() {
   let savedCity = JSON.parse(localStorage.getItem("cities"));
-  let list = document.getElementById("saved-city");
   if (savedCity == undefined) {
     return;
   }
@@ -255,16 +256,10 @@ searchBtn.addEventListener("click", function (event) {
 });
 
 clearBtn.addEventListener("click", function (event) {
-  event.preventDefault();
   removeAll();
+  console.log("clear");
 });
 function removeAll() {
-  document.getElementById("saved-city").remove();
+  document.getElementById("saved-cities").innerHTML = ``;
   localStorage.clear();
 }
-
-savedCityEl.addEventListener("click", function (event) {
-  event.preventDefault();
-  var city = event.target.textContent;
-  getApi(city);
-});
