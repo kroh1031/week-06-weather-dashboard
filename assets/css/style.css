@@ -1,14 +1,12 @@
 header {
   display: block;
+  width: 100%;
   color: white;
   background-color: rgb(128, 128, 128);
   text-align: center;
   padding: 5px;
 }
 
-.search-city {
-  cursor: pointer;
-}
 .weather-info {
   border-radius: 15px;
 }
