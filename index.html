@@ -30,18 +30,25 @@
           <button id="search-button" type="button" class="btn btn-primary">
             <i class="fas fa-search"></i>
           </button>
+          <button id="clear-button" class="btn btn-danger">Clear</button>
           <ul class="list-group">
-            <li id="saved-city-1" class="list-group-item"></li>
+            <li id="saved-city" class="list-group-item"></li>
           </ul>
         </div>
         <div class="col-md-7 mr-5 ml-5 border weather-info">
-          <h3 id="searched-city">City Name</h3>
-          <h3 id="current-date">Current Date</h3>
-          <image id="icon-rep"></image>
-          <p id="current-temp">Temperature:</p>
-          <p id="current-humidity">Humidity:</p>
-          <p id="current-wind-speed">Wind Speed:</p>
-          <p id="current-uvi">UV Index:</p>
+          <h1 id="searched-city">Atlanta</h1>
+          <h2 id="current-date">(3/26/2021)</h2>
+          <image
+            id="icon-rep"
+            src="http://openweathermap.org/img/wn/10d@2x.png"
+          ></image>
+          <p id="current-temp">Temperature: 72.07°F</p>
+          <p id="current-humidity">Humidity: 46%</p>
+          <p id="current-wind-speed">Wind Speed: 3.44 mph</p>
+          <p id="current-uvi">
+            UV Index:
+            <button class="btn" style="background-color: green">0</button>
+          </p>
         </div>
       </div>
     </container>
@@ -50,43 +57,58 @@
     <container>
       <div class="row">
         <div class="col-md-3 ml-5"></div>
-        <div class="col-md-7 mr-5 ml-5 border">
-          <h4>5-Day Forecast:</h4>
-          <div class="row ml-1">
+        <div class="col-md-7 ml-5">
+          <h2>5-Day Forecast:</h2>
+          <div class="row">
             <!-- First Day -->
-            <div class="col-md-2 border">
-              <p id="future-date-1">Date:</p>
-              <image id="icon-rep-1"></image>
-              <p id="future-temp-1">Temperature:</p>
-              <p id="future-humidity-1">Humidity:</p>
+            <div class="col-md-2 border mr-4 future-weather">
+              <h5 id="future-date-1">3/27/2021</h5>
+              <image
+                id="icon-rep-1"
+                src="http://openweathermap.org/img/wn/04d.png"
+              ></image>
+              <p id="future-temp-1">Temperature: 77.7°F</p>
+              <p id="future-humidity-1">Humidity: 59%</p>
             </div>
             <!-- Second Day -->
-            <div class="col-md-2 border">
-              <p id="future-date-2">Date:</p>
-              <image id="icon-rep-2"></image>
-              <p id="future-temp-2">Temperature:</p>
-              <p id="future-humidity-2">Humidity:</p>
+            <div class="col-md-2 border mr-4 future-weather">
+              <h5 id="future-date-2">3/28/2021</h5>
+              <image
+                id="icon-rep-2"
+                src="http://openweathermap.org/img/wn/10d.png"
+              ></image>
+              <p id="future-temp-2">Temperature: 69.26°F</p>
+              <p id="future-humidity-2">Humidity: 82%</p>
             </div>
             <!-- Third Day -->
-            <div class="col-md-2 border">
-              <p id="future-date-3">Date:</p>
-              <image id="icon-rep-3"></image>
-              <p id="future-temp-3">Temperature:</p>
-              <p id="future-humidity-3">Humidity:</p>
+            <div class="col-md-2 border mr-4 future-weather">
+              <h5 id="future-date-3">3/29/2021</h5>
+              <image
+                id="icon-rep-3"
+                src="http://openweathermap.org/img/wn/03d.png"
+              ></image>
+              <p id="future-temp-3">Temperature: 63.63°F</p>
+              <p id="future-humidity-3">Humidity: 31%</p>
             </div>
             <!-- Fourth Day -->
-            <div class="col-md-2 border">
-              <p id="future-date-4">Date:</p>
-              <image id="icon-rep-4"></image>
-              <p id="future-temp-4">Temperature:</p>
-              <p id="future-humidity-4">Humidity:</p>
+            <div class="col-md-2 border mr-4 future-weather">
+              <h5 id="future-date-4">3/30/2021</h5>
+              <image
+                id="icon-rep-4"
+                src="http://openweathermap.org/img/wn/01d.png"
+              ></image>
+              <p id="future-temp-4">Temperature: 56.5°F</p>
+              <p id="future-humidity-4">Humidity: 69%</p>
             </div>
             <!-- Fifth Day -->
-            <div class="col-md-2 border">
-              <p id="future-date-5">Date:</p>
-              <image id="icon-rep-5"></image>
-              <p id="future-temp-5">Temperature:</p>
-              <p id="future-humidity-5">Humidity:</p>
+            <div class="col-md-2 border mr-4 future-weather">
+              <h5 id="future-date-5">3/31/2021</h5>
+              <image
+                id="icon-rep-5"
+                src="http://openweathermap.org/img/wn/10n.png"
+              ></image>
+              <p id="future-temp-5">Temperature: 62.38°F</p>
+              <p id="future-humidity-5">Humidity: 96%</p>
             </div>
           </div>
         </div>

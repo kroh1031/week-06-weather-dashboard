@@ -61,7 +61,7 @@ function displayCurrentWeather(currentData) {
   let currentDate = new Date(currentData.dt * 1000).toLocaleDateString();
   let currentDateEl = document.getElementById("current-date");
   let icon = currentData.weather[0]["icon"];
-  let iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
+  let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
   let iconEl = document.getElementById("icon-rep");
   iconEl.setAttribute("src", iconUrl);
   let currentTemp = currentData.main["temp"];
@@ -173,27 +173,27 @@ function displayFutureWeather(futureData) {
       return;
     } else {
       //appending first day info
-      futureDateEl1.innerText = `(${futureDate1})`;
+      futureDateEl1.innerText = `${futureDate1}`;
       iconEl1.innerText = iconEl1;
       futureTempEl1.innerText = `Temperature: ${futureTemp1}°F`;
       futureHumidityEl1.innerText = `Humidity: ${futureHumidity1}%`;
       //appending second day info
-      futureDateEl2.innerText = `(${futureDate2})`;
+      futureDateEl2.innerText = `${futureDate2}`;
       iconEl2.innerText = iconEl2;
       futureTempEl2.innerText = `Temperature: ${futureTemp2}°F`;
       futureHumidityEl2.innerText = `Humidity: ${futureHumidity2}%`;
       //appending third day info
-      futureDateEl3.innerText = `(${futureDate3})`;
+      futureDateEl3.innerText = `${futureDate3}`;
       iconEl3.innerText = iconEl3;
       futureTempEl3.innerText = `Temperature: ${futureTemp3}°F`;
       futureHumidityEl3.innerText = `Humidity: ${futureHumidity3}%`;
       //appending fourth day info
-      futureDateEl4.innerText = `(${futureDate4})`;
+      futureDateEl4.innerText = `${futureDate4}`;
       iconEl4.innerText = iconEl4;
       futureTempEl4.innerText = `Temperature: ${futureTemp4}°F`;
       futureHumidityEl4.innerText = `Humidity: ${futureHumidity4}%`;
       //appending fifth day info
-      futureDateEl5.innerText = `(${futureDate5})`;
+      futureDateEl5.innerText = `${futureDate5}`;
       iconEl5.innerText = iconEl5;
       futureTempEl5.innerText = `Temperature: ${futureTemp5}°F`;
       futureHumidityEl5.innerText = `Humidity: ${futureHumidity5}%`;
@@ -216,11 +216,11 @@ function saveLastCity(city) {
     cities = [];
   }
   cities.push(city);
-  console.log(city[0].toUpperCase());
+
   localStorage.setItem("cities", JSON.stringify(cities));
 
-  let list = document.getElementById("saved-city-1");
-  var listItem = document.createElement(`button`);
+  let list = document.getElementById("saved-city");
+  let listItem = document.createElement(`button`);
   listItem.textContent = city;
   list.append(listItem);
 }
@@ -229,9 +229,10 @@ function init() {
   getItemsFromStorage();
 }
 init();
+
 function getItemsFromStorage() {
   let savedCity = JSON.parse(localStorage.getItem("cities"));
-  let list = document.getElementById("saved-city-1");
+  let list = document.getElementById("saved-city");
 
   savedCity.forEach((city) => {
     var listItem = document.createElement(`button`);
@@ -247,7 +248,15 @@ searchBtn.addEventListener("click", function (event) {
   saveLastCity(city);
 });
 
-const savedCityEl = document.getElementById("saved-city-1");
+// const clearBtn = document.getElementById("clear-button");
+// clearBtn.addEventListener("click", function (event) {
+//   event.preventDefault();
+//   removeAll();
+// });
+// function removeAll() {
+//   document.getElementById("saved-city").remove();
+// }
+const savedCityEl = document.getElementById("saved-city");
 savedCityEl.addEventListener("click", function (event) {
   event.preventDefault();
   var city = event.target.textContent;
